@@ -2,17 +2,27 @@ package br.edu.ifsp.sbv.m2adm;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
-public class GameView extends SurfaceView implements Runnable {
+import br.edu.ifsp.sbv.m2adm.gameobjects.Bird;
+
+public class GameView extends SurfaceView implements Runnable, View.OnTouchListener {
 
     boolean isRunning;
     SurfaceHolder holder = getHolder();
 
     public GameView(Context context) {
         super(context);
+
+        setOnTouchListener(this);
+        init();
     }
 
     public void resume() {
@@ -40,14 +50,45 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
-    public void update() {
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
 
+        bird.jump();
+        return false;
+    }
+
+
+    Screen screen;
+
+    Bird bird;
+    Bitmap background;
+    int backgroundPosition;
+
+    public void init() {
+
+        screen = new Screen(getContext());
+
+        bird = new Bird();
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        background = Bitmap.createScaledBitmap(bmp, bmp.getWidth(), screen.getHeight() ,false);
+        backgroundPosition = 0;
+    }
+
+    public void update() {
+        //backgroundPosition -= 5;
+
+        if (backgroundPosition < (-background.getWidth() + getWidth())) backgroundPosition = 0;
+        bird.plane();
     }
 
     public void render(Canvas canvas) {
 
+        canvas.drawBitmap(background, backgroundPosition, 0, null);
+
+        bird.draw(canvas);
     }
 
+    // better fps controll method
     // desired fps
     private final static int MAX_FPS = 50;
 

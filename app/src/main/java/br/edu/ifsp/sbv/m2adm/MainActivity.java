@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
         FrameLayout container = (FrameLayout)findViewById(R.id.container);
 
         container.addView(gameView);
-
-        new Thread(gameView).start();
     }
 
     @Override
@@ -29,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         gameView.resume();
+        new Thread(gameView).start();
     }
 
     @Override
