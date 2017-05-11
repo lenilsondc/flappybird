@@ -11,7 +11,12 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.edu.ifsp.sbv.m2adm.gameobjects.Bird;
+import br.edu.ifsp.sbv.m2adm.gameobjects.Pipe;
+import br.edu.ifsp.sbv.m2adm.gameobjects.Pipes;
 
 public class GameView extends SurfaceView implements Runnable, View.OnTouchListener {
 
@@ -63,22 +68,28 @@ public class GameView extends SurfaceView implements Runnable, View.OnTouchListe
     Bird bird;
     Bitmap background;
     int backgroundPosition;
+    Pipes pipes;
 
     public void init() {
 
         screen = new Screen(getContext());
 
-        bird = new Bird();
+        bird = new Bird(screen);
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-        background = Bitmap.createScaledBitmap(bmp, bmp.getWidth(), screen.getHeight() ,false);
+        background = Bitmap.createScaledBitmap(bmp, bmp.getWidth(), screen.getHeight(), false);
         backgroundPosition = 0;
+
+        pipes = new Pipes(screen);
     }
 
     public void update() {
         //backgroundPosition -= 5;
 
         if (backgroundPosition < (-background.getWidth() + getWidth())) backgroundPosition = 0;
+
         bird.plane();
+        pipes.move();
+
     }
 
     public void render(Canvas canvas) {
@@ -86,6 +97,7 @@ public class GameView extends SurfaceView implements Runnable, View.OnTouchListe
         canvas.drawBitmap(background, backgroundPosition, 0, null);
 
         bird.draw(canvas);
+        pipes.draw(canvas);
     }
 
     // better fps controll method

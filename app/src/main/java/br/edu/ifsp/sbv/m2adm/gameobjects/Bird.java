@@ -4,13 +4,22 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+import br.edu.ifsp.sbv.m2adm.Screen;
+
 public class Bird {
 
     private int x = 100;
     private int y = 400;
-    private float r = 50;
+    private int r = 50;
+    private Screen screen;
+    private float speed = 10;
+    private float gravity = 1;
 
-    public void draw(Canvas canvas){
+    public Bird(Screen screen) {
+        this.screen = screen;
+    }
+
+    public void draw(Canvas canvas) {
 
         Paint paint = new Paint();
         paint.setColor(Color.RED);
@@ -18,12 +27,26 @@ public class Bird {
         canvas.drawCircle(x, y, r, paint);
     }
 
-    public void jump(){
-        this.y -= 150;
+    public void jump() {
+        speed = -15;
+        if (y + speed > r) {
+            y += speed;
+        }else {
+            y = r;
+        }
     }
 
-    public void plane(){
-        y += 10;
+    public void plane() {
+
+        float limit = y + speed + r;
+
+        if (limit < screen.getHeight()) {
+            speed += gravity;
+            y += speed;
+        }else {
+            y = screen.getHeight() - r;
+        }
+
     }
 
     public int getX() {
@@ -46,7 +69,7 @@ public class Bird {
         return r;
     }
 
-    public void setR(float r) {
+    public void setR(int r) {
         this.r = r;
     }
 }
