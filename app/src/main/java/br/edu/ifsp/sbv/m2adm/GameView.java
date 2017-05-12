@@ -11,6 +11,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import br.edu.ifsp.sbv.m2adm.gameobjects.Background;
 import br.edu.ifsp.sbv.m2adm.gameobjects.Bird;
 
 public class GameView extends SurfaceView implements Runnable, View.OnTouchListener {
@@ -61,8 +62,7 @@ public class GameView extends SurfaceView implements Runnable, View.OnTouchListe
     Screen screen;
 
     Bird bird;
-    Bitmap background;
-    int backgroundPosition;
+    Background background;
 
     public void init() {
 
@@ -70,21 +70,17 @@ public class GameView extends SurfaceView implements Runnable, View.OnTouchListe
 
         bird = new Bird();
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.background);
-        background = Bitmap.createScaledBitmap(bmp, bmp.getWidth(), screen.getHeight() ,false);
-        backgroundPosition = 0;
+        background = new Background(Bitmap.createScaledBitmap(bmp, bmp.getWidth(), screen.getHeight() ,false));
     }
 
     public void update() {
-        //backgroundPosition -= 5;
 
-        if (backgroundPosition < (-background.getWidth() + getWidth())) backgroundPosition = 0;
+        background.update();
         bird.plane();
     }
 
     public void render(Canvas canvas) {
-
-        canvas.drawBitmap(background, backgroundPosition, 0, null);
-
+        background.draw(canvas);
         bird.draw(canvas);
     }
 
