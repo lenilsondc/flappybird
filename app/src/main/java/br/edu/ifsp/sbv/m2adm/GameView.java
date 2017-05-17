@@ -12,7 +12,11 @@ import android.view.SurfaceView;
 import android.view.View;
 
 import br.edu.ifsp.sbv.m2adm.gameobjects.Background;
+import java.util.ArrayList;
+import java.util.List;
 import br.edu.ifsp.sbv.m2adm.gameobjects.Bird;
+import br.edu.ifsp.sbv.m2adm.gameobjects.Pipe;
+import br.edu.ifsp.sbv.m2adm.gameobjects.Pipes;
 
 public class GameView extends SurfaceView implements Runnable, View.OnTouchListener {
 
@@ -63,25 +67,33 @@ public class GameView extends SurfaceView implements Runnable, View.OnTouchListe
 
     Bird bird;
     Background background;
+    Pipes pipes;
 
     public void init() {
 
         screen = new Screen(getContext());
 
-        bird = new Bird();
+        bird = new Bird(screen);
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+
         background = new Background(Bitmap.createScaledBitmap(bmp, bmp.getWidth(), screen.getHeight() ,false));
+
+        pipes = new Pipes(screen);
     }
 
     public void update() {
 
         background.update();
+        
         bird.plane();
+        pipes.move();
+
     }
 
     public void render(Canvas canvas) {
         background.draw(canvas);
         bird.draw(canvas);
+        pipes.draw(canvas);
     }
 
     // better fps controll method

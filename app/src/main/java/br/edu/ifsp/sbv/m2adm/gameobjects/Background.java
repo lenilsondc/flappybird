@@ -16,7 +16,7 @@ public class Background {
 
     public void update() {
 
-        backgroundPosition -= 5;
+        backgroundPosition -= 1;
         if (backgroundPosition < (-background.getWidth() / 2))
             backgroundPosition = backgroundPosition - (-background.getWidth() / 2);
     }
