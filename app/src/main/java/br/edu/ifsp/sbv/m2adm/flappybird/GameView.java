@@ -1,22 +1,19 @@
-package br.edu.ifsp.sbv.m2adm;
+package br.edu.ifsp.sbv.m2adm.flappybird;
 
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-import br.edu.ifsp.sbv.m2adm.gameobjects.Background;
-import java.util.ArrayList;
-import java.util.List;
-import br.edu.ifsp.sbv.m2adm.gameobjects.Bird;
-import br.edu.ifsp.sbv.m2adm.gameobjects.Pipe;
-import br.edu.ifsp.sbv.m2adm.gameobjects.Pipes;
+import br.edu.ifsp.sbv.m2adm.R;
+import br.edu.ifsp.sbv.m2adm.flappybird.gameobjects.Background;
+import br.edu.ifsp.sbv.m2adm.flappybird.gameobjects.Bird;
+import br.edu.ifsp.sbv.m2adm.flappybird.gameobjects.Pipes;
 
 public class GameView extends SurfaceView implements Runnable, View.OnTouchListener {
 

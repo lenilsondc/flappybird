@@ -1,4 +1,4 @@
-package br.edu.ifsp.sbv.m2adm.gameobjects;
+package br.edu.ifsp.sbv.m2adm.flappybird.gameobjects;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

@@ -1,10 +1,12 @@
-package br.edu.ifsp.sbv.m2adm;
+package br.edu.ifsp.sbv.m2adm.flappybird;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+
+import br.edu.ifsp.sbv.m2adm.R;
 
 public class MainActivity extends AppCompatActivity {
 

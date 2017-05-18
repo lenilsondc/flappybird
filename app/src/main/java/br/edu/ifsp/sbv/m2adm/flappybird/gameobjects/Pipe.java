@@ -1,13 +1,11 @@
-package br.edu.ifsp.sbv.m2adm.gameobjects;
+package br.edu.ifsp.sbv.m2adm.flappybird.gameobjects;
 
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import java.util.Random;
-
-import br.edu.ifsp.sbv.m2adm.Screen;
+import br.edu.ifsp.sbv.m2adm.flappybird.Screen;
 
 public class Pipe {
 

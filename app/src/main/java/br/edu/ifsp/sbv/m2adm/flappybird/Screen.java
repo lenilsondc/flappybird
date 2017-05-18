@@ -1,4 +1,4 @@
-package br.edu.ifsp.sbv.m2adm;
+package br.edu.ifsp.sbv.m2adm.flappybird;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
