@@ -49,5 +49,14 @@ public class Pipe {
     public int getX() {
         return x;
     }
+
+    public boolean colidesWith(Bird bird) {
+
+        if (bird.getY() - bird.getR() < topHeight || bird.getY() + bird.getR() > bottomHeight) {
+            return x - bird.getX() < bird.getR();
+        }
+
+        return false;
+    }
 }
 

@@ -13,7 +13,9 @@ import android.view.View;
 import br.edu.ifsp.sbv.m2adm.R;
 import br.edu.ifsp.sbv.m2adm.flappybird.gameobjects.Background;
 import br.edu.ifsp.sbv.m2adm.flappybird.gameobjects.Bird;
+import br.edu.ifsp.sbv.m2adm.flappybird.gameobjects.GameOver;
 import br.edu.ifsp.sbv.m2adm.flappybird.gameobjects.Pipes;
+import br.edu.ifsp.sbv.m2adm.flappybird.gameobjects.Score;
 
 public class GameView extends SurfaceView implements Runnable, View.OnTouchListener {
 
@@ -45,8 +47,15 @@ public class GameView extends SurfaceView implements Runnable, View.OnTouchListe
             if (!holder.getSurface().isValid()) continue;
 
             canvas = holder.lockCanvas();
-            update();
-            render(canvas);
+
+            if(colisor.colides()){
+                new GameOver(screen).draw(canvas);
+                pause();
+            }else {
+
+                update();
+                render(canvas);
+            }
 
             holder.unlockCanvasAndPost(canvas);
         }
@@ -65,6 +74,8 @@ public class GameView extends SurfaceView implements Runnable, View.OnTouchListe
     Bird bird;
     Background background;
     Pipes pipes;
+    Score score;
+    Colisor colisor;
 
     public void init() {
 
@@ -75,13 +86,17 @@ public class GameView extends SurfaceView implements Runnable, View.OnTouchListe
 
         background = new Background(Bitmap.createScaledBitmap(bmp, bmp.getWidth(), screen.getHeight() ,false));
 
-        pipes = new Pipes(screen);
+        score = new Score();
+        pipes = new Pipes(screen, score);
+
+        colisor = new Colisor(bird, pipes);
     }
 
     public void update() {
 
+
         background.update();
-        
+
         bird.plane();
         pipes.move();
 
@@ -91,6 +106,7 @@ public class GameView extends SurfaceView implements Runnable, View.OnTouchListe
         background.draw(canvas);
         bird.draw(canvas);
         pipes.draw(canvas);
+        score.draw(canvas);
     }
 
     // better fps controll method

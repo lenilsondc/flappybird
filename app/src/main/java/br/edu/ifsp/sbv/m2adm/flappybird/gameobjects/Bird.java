@@ -12,7 +12,7 @@ public class Bird {
     private int y = 400;
     private int r = 50;
     private Screen screen;
-    private float speed = 10;
+    private float speed = 2;
     private float gravity = 1;
 
     public Bird(Screen screen) {
