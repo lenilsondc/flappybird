@@ -49,6 +49,7 @@ public class GameView extends SurfaceView implements Runnable, View.OnTouchListe
             canvas = holder.lockCanvas();
 
             if(colisor.colides()){
+                audio.play(Audio.COLIDE);
                 new GameOver(screen).draw(canvas);
                 pause();
             }else {
@@ -76,18 +77,19 @@ public class GameView extends SurfaceView implements Runnable, View.OnTouchListe
     Pipes pipes;
     Score score;
     Colisor colisor;
+    Audio audio;
 
     public void init() {
 
         screen = new Screen(getContext());
+        audio = new Audio(getContext());
 
-        bird = new Bird(screen);
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        bird = new Bird(getContext(), screen, audio);
 
-        background = new Background(Bitmap.createScaledBitmap(bmp, bmp.getWidth(), screen.getHeight() ,false));
+        background = new Background(getContext(), screen);
 
-        score = new Score();
-        pipes = new Pipes(screen, score);
+        score = new Score(audio);
+        pipes = new Pipes(getContext(), screen, score);
 
         colisor = new Colisor(bird, pipes);
     }

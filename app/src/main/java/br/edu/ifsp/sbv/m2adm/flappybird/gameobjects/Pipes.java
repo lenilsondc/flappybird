@@ -1,5 +1,6 @@
 package br.edu.ifsp.sbv.m2adm.flappybird.gameobjects;
 
+import android.content.Context;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
@@ -15,14 +16,17 @@ public class Pipes {
     private Screen screen;
     private Score score;
 
-    public Pipes(Screen screen, Score score) {
+    private Context context;
+
+    public Pipes(Context context, Screen screen, Score score) {
+        this.context = context;
 
         this.screen = screen;
         this.score = score;
         this.pipes = new ArrayList();
 
         for (int i = 0; i < pipeCount; i++) {
-            pipes.add(new Pipe(screen, 200 + i * pipeSpacing));
+            pipes.add(new Pipe(context, screen, 200 + i * pipeSpacing));
         }
     }
 
@@ -46,7 +50,7 @@ public class Pipes {
                 score.increase();
                 iterator.remove();
 
-                Pipe newPipe = new Pipe(screen, getLastPipeX() + pipeSpacing);
+                Pipe newPipe = new Pipe(context, screen, getLastPipeX() + pipeSpacing);
 
                 iterator.add(newPipe);
             }
@@ -63,11 +67,12 @@ public class Pipes {
         return lastPipeX;
     }
 
-    public boolean colidesWith(Bird bird){
+
+    public boolean colidesWith(Bird bird) {
         for (Pipe pipe : pipes) {
-           if(pipe.colidesWith(bird)){
-               return true;
-           }
+            if (pipe.colidesWith(bird)) {
+                return true;
+            }
         }
 
         return false;

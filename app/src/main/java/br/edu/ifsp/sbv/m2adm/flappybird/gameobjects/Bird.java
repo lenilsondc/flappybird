@@ -1,9 +1,12 @@
 package br.edu.ifsp.sbv.m2adm.flappybird.gameobjects;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 
+import br.edu.ifsp.sbv.m2adm.R;
+import br.edu.ifsp.sbv.m2adm.flappybird.Audio;
 import br.edu.ifsp.sbv.m2adm.flappybird.Screen;
 
 public class Bird {
@@ -14,24 +17,30 @@ public class Bird {
     private Screen screen;
     private float speed = 2;
     private float gravity = 1;
+    private Bitmap sprite;
 
-    public Bird(Screen screen) {
+    private Audio audio;
+
+    public Bird(Context context, Screen screen, Audio audio) {
         this.screen = screen;
+
+        Bitmap bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.bird);
+        this.sprite = Bitmap.createScaledBitmap(bmp, r * 2, r * 2, false);
+
+        this.audio = audio;
     }
 
     public void draw(Canvas canvas) {
 
-        Paint paint = new Paint();
-        paint.setColor(Color.RED);
-
-        canvas.drawCircle(x, y, r, paint);
+        canvas.drawBitmap(this.sprite, x - r, y - r, null);
     }
 
     public void jump() {
         speed = -15;
         if (y + speed > r) {
             y += speed;
-        }else {
+            this.audio.play(Audio.JUMP);
+        } else {
             y = r;
         }
     }
@@ -43,7 +52,7 @@ public class Bird {
         if (limit < screen.getHeight()) {
             speed += gravity;
             y += speed;
-        }else {
+        } else {
             y = screen.getHeight() - r;
         }
 

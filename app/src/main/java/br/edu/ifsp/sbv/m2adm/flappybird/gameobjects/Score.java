@@ -5,8 +5,17 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 
+
+import br.edu.ifsp.sbv.m2adm.flappybird.Audio;
+
 public class Score {
     private int score;
+
+    Audio audio;
+
+    public Score(Audio audio) {
+        this.audio = audio;
+    }
 
     public void draw(Canvas canvas) {
 
@@ -19,6 +28,8 @@ public class Score {
     }
 
     public void increase() {
+
+        this.audio.play(Audio.SCORE);
         this.score++;
     }
 
